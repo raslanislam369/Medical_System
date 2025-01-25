@@ -49,13 +49,6 @@ class SignupScreen extends StatelessWidget {
               height: 15,
             ),
             CustomTextfield(
-              Hint: "Comfirm Your Email ",
-              sufIcon: Icon(color: Colors.grey, Icons.email_outlined),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            CustomTextfield(
               Hint: "Enter Your Password",
               sufIcon: Icon(color: Colors.grey, Icons.visibility_outlined),
             ),
