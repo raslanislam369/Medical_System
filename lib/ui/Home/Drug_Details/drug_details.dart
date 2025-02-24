@@ -1,38 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intelligent_medical_system/ui/Home/home_screen.dart';
-import 'package:intelligent_medical_system/ui/Register/login_screen.dart';
-import 'package:intelligent_medical_system/ui/Register/signup_screen.dart';
-import 'package:intelligent_medical_system/ui/Splash/splash_screen.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(
-      routes: {
-        SplashScreen.routeName:(context)=>SplashScreen(),
-        HomeScreen.routeName:(context)=>HomeScreen(),
-        LoginScreen.routeName:(context)=>LoginScreen(),
-        SignupScreen.routeName:(context)=>SignupScreen(),
-      },
-      debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.routeName,
-    );
-  }
-}
-/*
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:intelligent_medical_system/ui/colors/app_colors.dart';
 
-class FavoriteDrugs {
-  static List<Map<String, dynamic>> favorites = [];
-}
+import '../liked/liked_details.dart';
+
+
 
 class AllDrugsScreen extends StatefulWidget {
   @override
@@ -52,7 +26,7 @@ class _AllDrugsScreenState extends State<AllDrugsScreen> {
 
   Future<void> _fetchDrugs() async {
     try {
-      final response = await http.get(Uri.parse('https://1474-196-159-72-17.ngrok-free.app/api/'));
+      final response = await http.get(Uri.parse('https://e64a-195-246-41-198.ngrok-free.app/api/'));
 
       if (response.statusCode == 200) {
         final decodedResponse = json.decode(response.body);
@@ -81,17 +55,6 @@ class _AllDrugsScreenState extends State<AllDrugsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('All Drugs'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.favorite, color: Colors.red),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FavoriteScreen()),
-              );
-            },
-          ),
-        ],
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
@@ -168,20 +131,38 @@ class DrugDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Drug Details")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Drug Details', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            SizedBox(height: 16),
+            // عرض صورة الدواء
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: drug['ImageURL'] != null && drug['ImageURL']!.isNotEmpty
+                    ? Image.network(
+                  drug['ImageURL']!,
+                  width: 180,
+                  height: 180,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.broken_image, size: 100, color: Colors.red);
+                  },
+                )
+                    : const Icon(Icons.medical_services, size: 100, color: Colors.blue),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // عرض تفاصيل الدواء
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [BoxShadow(color: Colors.grey.shade400, blurRadius: 4)],
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -194,7 +175,9 @@ class DrugDetails extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
+
+            // زر الإضافة إلى المفضلة
             ElevatedButton.icon(
               onPressed: () {
                 if (!FavoriteDrugs.favorites.contains(drug)) {
@@ -204,9 +187,13 @@ class DrugDetails extends StatelessWidget {
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              icon: Icon(Icons.favorite, color: Colors.white),
-              label: Text('Add to Favorite', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.secondColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+              icon: const Icon(Icons.favorite, color: Colors.white),
+              label: const Text('Add to Favorite', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -219,9 +206,9 @@ class DrugDetails extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4.0),
       child: RichText(
         text: TextSpan(
-          style: TextStyle(color: Colors.black, fontSize: 16),
+          style: const TextStyle(color: Colors.black, fontSize: 16),
           children: [
-            TextSpan(text: '$title ', style: TextStyle(fontWeight: FontWeight.bold)),
+            TextSpan(text: '$title ', style: const TextStyle(fontWeight: FontWeight.bold)),
             TextSpan(text: value ?? 'Not available'),
           ],
         ),
@@ -229,6 +216,7 @@ class DrugDetails extends StatelessWidget {
     );
   }
 }
+
 
 class FavoriteScreen extends StatefulWidget {
   @override
@@ -260,4 +248,3 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     );
   }
 }
-*/

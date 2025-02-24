@@ -19,60 +19,63 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Intelligent",
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 40,
-                  color: AppColor.secondColor),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Intelligent",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 40,
+                      color: AppColor.secondColor),
+                ),
+                Text(
+                  "Medical System",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 40,
+                      color: AppColor.whiteColor),
+                ),
+              ],
             ),
-            Text(
-              "medical system",
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 40,
-                  color: AppColor.whiteColor),
+            const SizedBox(height: 30),
+            Expanded(
+              child: Center(
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  width: 250, // التحكم في حجم الصورة
+                ),
+              ),
             ),
-            SizedBox(
-              height: 40,
+            const SizedBox(height: 30),
+            CustomBtn(
+              doThis: goToLogin,
+              textSize: 22,
+              textWeight: FontWeight.w500,
+              btnText: "Login",
+              btnTextColor: AppColor.whiteColor,
+              btnWidth: double.infinity, // زر بالحجم الكامل
+              btnColor: AppColor.secondColor,
+              btnBorderWidth: 0,
+              btnBorderColor: Colors.transparent,
             ),
-            Image.asset(
-              "assets/images/logo.png",
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: CustomBtn(
-                  doThis: goToLogin,
-                  textSize: 31,
-                  textWeight: FontWeight.w500,
-                  btnText: "Login",
-                  btnTextColor: AppColor.whiteColor,
-                  btnWidth: 370,
-                  btnColor: AppColor.secondColor,
-                  btnBorderWidth: 0,
-                  btnBorderColor: Colors.transparent),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: CustomBtn(
-                  doThis: goToSignUp,
-                  textSize: 31,
-                  textWeight: FontWeight.w500,
-                  btnText: "Sign UP",
-                  btnTextColor: AppColor.darkColor,
-                  btnWidth: 370,
-                  btnColor: AppColor.whiteColor,
-                  btnBorderWidth: 3,
-                  btnBorderColor: AppColor.secondColor),
+            const SizedBox(height: 20),
+            CustomBtn(
+              doThis: goToSignUp,
+              textSize: 22,
+              textWeight: FontWeight.w500,
+              btnText: "Sign Up",
+              btnTextColor: AppColor.darkColor,
+              btnWidth: double.infinity, // زر بالحجم الكامل
+              btnColor: AppColor.whiteColor,
+              btnBorderWidth: 3,
+              btnBorderColor: AppColor.secondColor,
             ),
           ],
         ),
@@ -81,10 +84,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void goToLogin() {
-    Navigator.pushNamed(context, LoginScreen.routeName);
+    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
   }
 
   void goToSignUp() {
-    Navigator.pushNamed(context, SignupScreen.routeName);
+    Navigator.pushReplacementNamed(context, SignupScreen.routeName);
   }
 }

@@ -56,7 +56,7 @@ class SignupScreen extends StatelessWidget {
               height: 15,
             ),
             CustomTextfield(
-              Hint: "Comfirm Password",
+              Hint: "Comfirm Passwrord",
               sufIcon: Icon(color: Colors.grey, Icons.visibility_off_outlined),
             ),
             SizedBox(
@@ -69,7 +69,7 @@ class SignupScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 15, color: AppColor.whiteColor)),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, LoginScreen.routeName);
+                    Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                   },
                   child: Text(
                     " Log in",

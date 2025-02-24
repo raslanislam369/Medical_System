@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intelligent_medical_system/ui/Home/home_screen.dart';
 import 'package:intelligent_medical_system/ui/Register/signup_screen.dart';
 import 'package:intelligent_medical_system/ui/custom/custom_btn.dart';
 import 'package:intelligent_medical_system/ui/custom/custom_textfield.dart';
@@ -68,7 +69,9 @@ class LoginScreen extends StatelessWidget {
                     height: 40,
                   ),
                   CustomBtn(
-                      doThis: () {},
+                      doThis: () {
+                        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                      },
                       btnText: "Log in",
                       btnTextColor: AppColor.whiteColor,
                       textSize: 25,
@@ -78,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                       btnBorderWidth: 0,
                       btnBorderColor: Colors.transparent),
                   SizedBox(
-                    height: 80,
+                    height: 20,
                   ),
                   Text(
                     "Don’t have an account?",
